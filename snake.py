@@ -34,8 +34,17 @@ class Snake(object):
         self.image = pygame.image.load('img/snakeBody.png')
     
     def move(self):
-        pass
+                              
+        self.isDie()
+    
+    def isDie(self):
+        if self.x < 10 or self.x > game.game_width - 10 \
+            or self.y < 10 or self.y > game.game_height - 10:   # Touch the boundary
+            game.gameover = True
         
+        if [self.x, self.y] in self.position: # Touch itself
+            game.gameover = True
+                              
     def eat(self):
         pass
     
@@ -76,6 +85,10 @@ def run(params):
     
     while not game.gameover:
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                              
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     pass
